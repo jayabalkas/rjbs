@@ -1,0 +1,75 @@
+<div class='panel panel-primary'>
+	<div class='panel-heading'>{{pageTitle}}</div>
+	<form [formGroup]="bsForm" novalidate (ngSubmit)="save(bsForm.value, bsForm.valid)">
+
+		<!-- Filter the Products   -->
+		<div class='panel-body'>
+		
+			<div class='row'>
+				<div class='col-md-2'>Type of Expense: </div>
+				<div class='col-md-8'>
+					<select formControlName="typeOfExp">
+				        <option *ngFor="let typeOfExp of typeOfExps" [ngValue]="typeOfExp">
+				          {{ typeOfExp}}
+				        </option>
+				    </select>
+				</div>
+			</div>
+			<br/>
+
+			<div class='row'>
+				<div class='col-md-2'>Expense Description: </div>
+				<div class='col-md-8'>
+					<input type="text" formControlName="entryDesc">
+					<small style="color:red;"[hidden]="bsForm.controls.entryDesc.value == null || bsForm.controls.entryDesc.valid || (bsForm.controls.entryDesc.pristine && !submitted)">
+				        Expense is required (min=5, max=50 characters).
+				    </small>
+				</div>
+			</div>			
+			<br/>
+			
+			<div class='row'>
+				<div class='col-md-2'>Store Name: </div>
+				<div class='col-md-8'>
+					<input type="text" formControlName="storeName">
+					<small style="color:red;" [hidden]="bsForm.controls.storeName.value == null || bsForm.controls.storeName.valid || (bsForm.controls.storeName.pristine && !submitted)">
+				        Expense is required (min=3, max=50 characters).
+				    </small>
+				</div>
+			</div>
+			<br/>
+			
+			<div class='row'>
+				<div class='col-md-2'>Expense Date: </div>
+				<div class='col-md-8'>
+					<input type="date" formControlName="expDate">
+					<small style="color:red;" [hidden]="bsForm.controls.expDate.value == null || bsForm.controls.expDate.valid || (bsForm.controls.expDate.pristine && !submitted)">
+				        Expense is required.
+				    </small>
+				</div>
+			</div>
+			<br/>
+
+			<div class='row'>
+				<div class='col-md-2'>Amount: </div>
+				<div class='col-md-8'>
+					<input type="number" formControlName="amount" style="direction: rtl;">
+					<small style="color:red;" [hidden]="bsForm.controls.amount.value == null || (bsForm.controls.amount.valid || (bsForm.controls.amount.pristine && !submitted))">
+				        Amount is required.
+				    </small>
+				</div>
+			</div>
+			<br/>
+			
+		</div>
+		
+		<div class='panel-footer'>
+			<button type="submit">Submit</button>
+			<button (click)='reset()'>Reset</button>
+			<small style="color:red;" [hidden]="!msgFlag">
+				        {{status}}
+		    </small>
+	    </div>
+		
+	</form>
+</div>

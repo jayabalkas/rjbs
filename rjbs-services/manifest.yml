@@ -1,0 +1,7 @@
+---
+applications:
+- name: rjbs-service
+  memory: 256M
+  instances: 1
+  host: rjbs-service  
+  path: C:\work\temp\rjbs-services\balance-sheet-0.1.0.jar

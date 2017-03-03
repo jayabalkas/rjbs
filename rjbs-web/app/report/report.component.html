@@ -1,0 +1,78 @@
+<form [formGroup]="bsForm" novalidate (ngSubmit)="save(bsForm.value, bsForm.valid)">
+	<div class='panel-body'>
+		<div class='row'>
+			<div class='col-md-2'>Select report type: </div>
+			<div class='col-md-2'>
+				 <select formControlName="reportType" (ngModelChange)="doClear()">
+			        <option *ngFor="let reportType of reportTypes" [ngValue]="reportType">
+			          {{ reportType }}
+			        </option>
+			    </select>
+			</div>
+		</div>
+		<br/>
+		<div class='row'>
+			<div class='col-md-2' *ngIf="bsForm.controls.reportType.value == 'Monthly'">Select month and year: </div>
+			<div class='col-md-1' *ngIf="bsForm.controls.reportType.value == 'Monthly'">
+				 <select formControlName="month">
+			        <option *ngFor="let month of months" [ngValue]="month">
+			          {{ month }}
+			        </option>
+			    </select>
+			    
+			</div>
+			<div class='col-md-2' *ngIf="bsForm.controls.reportType.value == 'Yearly'">Select year: </div>
+			<div class='col-md-8' *ngIf="bsForm.controls.reportType.value == 'Yearly' || bsForm.controls.reportType.value == 'Monthly'">
+				<input type="text" formControlName="year" size="4" maxlength="4" min="2000" max="2050">
+				
+				<small style="color:red;" [hidden]="(bsForm.controls.reportType.value == 'Yearly') || (bsForm.controls.month.value == null || (bsForm.controls.month.valid || (bsForm.controls.month.pristine && !submitted)))">
+			        Month is required.
+			    </small>
+				<small style="color:red;" [hidden]="bsForm.controls.year.value == null || (bsForm.controls.year.valid || (bsForm.controls.year.pristine && !submitted))">
+			        Year is required and should be a valid year.
+			    </small>
+			</div>			
+		</div>
+		
+		<div class='panel-footer' *ngIf="bsForm.controls.reportType.value == 'Yearly' || bsForm.controls.reportType.value == 'Monthly'">
+			<button type="submit">Submit</button>
+			<button (click)='reset()'>Reset</button>
+			<small style="color:red;" [hidden]="!msgFlag">
+				        {{status}}
+		    </small>
+	    </div>
+		
+	</div>
+</form>
+
+<div class='panel panel-primary'>
+	<div class='panel-heading'>{{pageTitle}}</div>
+	
+	<div class='panel-body'>
+		<div class='table-responsive'>
+            <table class='table'>
+                <thead>
+                    <tr>
+                    	 <th>S.No</th>
+                         <th>Expense Description</th>
+				         <th>Type of Expense</th>
+				         <th>Store Name</th>
+				         <th>Expense Date</th>
+				         <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let entry of entries let i =index'>
+                    	<td>{{i}}</td>
+                         <td>{{entry.entryDesc}}</td>
+			             <td>{{entry.typeOfExp}}</td>
+			             <td>{{entry.storeName}}</td>
+			             <td>{{entry.expDate}}</td>
+			             <td style="direction: rtl;">{{entry.amount | currency:'USD':true}}</td>                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>    
+	</div>
+</div>
+	

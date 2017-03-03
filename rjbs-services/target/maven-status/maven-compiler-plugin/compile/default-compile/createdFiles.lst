@@ -1,0 +1,7 @@
+org\rj\bs\web\controller\RJBSRestController.class
+org\rj\bs\web\controller\Status.class
+org\rj\bs\store\JpaEntryRepository.class
+org\rj\bs\Application.class
+org\rj\bs\config\MySqlCloudDataSourceConfig.class
+org\rj\bs\config\RSApplicationInitializer.class
+org\rj\bs\store\Entry.class
